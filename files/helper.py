@@ -57,12 +57,8 @@ def check_safe_dir(root_dir, path):
     root_dir_lower = root_dir.lower()
     path_lower = path.lower()
     # 确保路径在指定的根目录下（忽略大小写）
-    if not path_lower.startswith(root_dir_lower):
+    if path_lower.startswith("."):
         return False
-    # 检查路径是否是一个文件而不是目录，并且确保在指定的根目录下
-    # full_path = os.path.join(root_dir, path.lstrip('/'))
-    # if os.path.isfile(full_path):
-    #     return True
     return True
 
 

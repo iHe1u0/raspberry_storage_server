@@ -1,4 +1,5 @@
 import os
+import platform
 from datetime import datetime
 
 from starlette.responses import FileResponse
@@ -7,7 +8,7 @@ from files import file_api
 from files.helper import check_safe_dir, get_files, json_msg
 from utils.token_utils import get_token, users
 
-root_directory = "c:/users"
+root_directory = "c:/" if platform.system().lower() == "windows" else "/media/kt/Disk0/Backup/"
 
 
 @file_api.get("/")
@@ -19,6 +20,7 @@ def index():
 # async def get_files_with_token(directory_path: str, token: str = Depends(get_token)):
 async def get_files_with_token(path: str):
     if check_safe_dir(root_directory, path):
+        path = root_directory + "/" + path
         return get_files(path, None)
     else:
         return json_msg(403, "Not authorized")
